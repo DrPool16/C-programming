@@ -55,13 +55,12 @@ In this section applies an important concept known as SHORT CIRCUIT
 
 BITWISE OPERATOR
 
-BITWISE OR, AND & OR
+    Bitwise OR, AND & OR
+    * As name suggests -it does bitwise manipulation
 
-As name suggests -it does bitwise manipulation
+                    & ,  | ,  ~  ,    <<     ,     >>    ,  ^
+    Bitwise --->   AND, OR , NOT , LEFT SHIFT, RIGHT SHIT, XOR
 
-
-                & ,  | ,  ~  ,    <<     ,     >>    ,  ^
-BITWISE --->   AND, OR , NOT , LEFT SHIFT, RIGHT SHIT, XOR
     Bitwise AND(&) operator
     * It takes two bits at a time and perform AND operator.
     * AND (&) is binary operator. It takes two numbers and perform bitwise AND.
@@ -95,7 +94,39 @@ BITWISE --->   AND, OR , NOT , LEFT SHIFT, RIGHT SHIT, XOR
     * Bitwise XOR(^) is binary operator. It takes two numbers and perform bitwise XOR.
     * Result of XOR is 1 when two bits are different otherwise the result is 0.
 
-*
+ASSIGNMENT OPERATOR
+
+* Values to a variable can be assigned using assignment operator.
+* Requires two values L-value and R-value.
+* This operator copies R-value to L-value.
+             |var|            |=|              |5|    ;
+            L-value,  Assignment operator,   R-value  ;
+
+    +=      First addition than assignment.
+    -+      First subtraction than assignment.
+    *=      Fist multiplication than assignment.
+    /=      First division than assignment.
+    %=      First modulus than assignment.
+    <<=     First bitwise left shift than assignment.
+    >>=     First bitwise right shift than assignment.
+    &=      First bitwise AND than assignment.
+    |=      First bitwise OR than assignment.
+    ^=      First bitwise XOR than assignment.
+
+CONDITIONAL OPERATOR
+
+* Look and feel:    ? :
+* if(mark>33){result='x'}else{result='y'};  <--->  result = (mark>33) ? 'x' : 'y';
+
+COMMA (,) OPERATOR
+
+* Comma operator can be used as an "separator".
+* Comma operator can be used as an "operator".
+* Comma operator returns the rightmost operand in the expression and
+  it simply evaluates the rest of the operands and finally reject them.
+* Comma operator is having least precedence among all the operators available in C language.
+
+
 */
 
 int main()
@@ -156,5 +187,35 @@ int main()
     b2 = a2 ^ b2;       // 0100
     a2 = a2 ^ b2;       // 0011
     printf("After XOR, a = %d and b = %d\n",a2,b2);
+
+
+    /*ASSIGNMENT OPERATORS*/
+    char a3 = 7; //a3= 0111 = 7 in binary , Note: 5 in binary is 0101
+    a3 ^= 5;     //(a3^= 5) = 0010 = 2 in binary, Note: 3 in binary is 0011
+    printf("%d\n", printf("%d", a3+=3)); // a3+=3 --> 0101 = 5 in binary, so, the result is 5 and printf("%d",1) -> 51,
+                                         // the main printf() returns the length of 2nd print function's output.
+
+
+    /*CONDITIONAL OPERATOR*/
+    int var3 = 75;
+    int var4 = 56;
+    int num;
+    num = sizeof(var3) ? (var4 > 23?((var3 == 75)? 'A' : 0) : 0) :0;
+    printf("%d\n",num);
+
+    /*COMMA OPERATOR*/
+    int a4 = (3,4,8);
+    printf("%d\n", a4);  // a4 = 8
+
+    int var5 = (printf("%s\n", "HELLO!"), 5);
+    printf("%d\n",var5); // HELLO! 5
+    printf("%d\n",var5);   // 5
+
+    int var6;
+    int num1;
+    num1 = (var6 = 15, var6+35);
+    printf("%d", num1);
+
+
     return 0;
 }
