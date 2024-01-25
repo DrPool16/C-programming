@@ -126,7 +126,14 @@ COMMA (,) OPERATOR
   it simply evaluates the rest of the operands and finally reject them.
 * Comma operator is having least precedence among all the operators available in C language.
 
+PRECEDENCE AND ASSOCIATIVITY OF OPERATORS
 
+* Associativity can be either: 1.Left to right OR 2. Right to left.
+
+Talking about categories, Unary: ! ~ ++ -- + - * & (type) sizeof; Conditional: ? : ; Assignment = += -= *= /= %= &= ^= |= <<= >>= ; the Associativity is Right to left
+
+* Associativity can only help if there are two or more operators of same precedence and not when there is just one operator.
+* Operator with same precedence have the same associativity as well.
 */
 
 int main()
@@ -214,7 +221,17 @@ int main()
     int var6;
     int num1;
     num1 = (var6 = 15, var6+35);
-    printf("%d", num1);
+    printf("%d\n", num1);
+
+    /*PRECEDENCE AND ASSOCIATIVITY OF OPERATORS*/
+    int a5 = 10, b5 = 20, c5 = 30, d5 = 40;
+    if(a5 <= b5 == d5 > 5)
+    {
+        printf("TRUE");
+    }else
+    {
+        printf("FLASE");
+    }
 
 
     return 0;
