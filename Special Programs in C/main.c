@@ -10,6 +10,7 @@ int main()
     int rows;
     int pal;
     int arms;
+    int stnum;
     switch(chose){
     case 1:
         /*Pyramid of Stars*/
@@ -38,7 +39,7 @@ int main()
         }else{
             printf("The number %d is not a palindrome\n",pal);
         }
-
+        break;
     case 3:
         /*Armstrong Number*/
         printf("Write a number:\n");
@@ -60,14 +61,47 @@ int main()
                 if(l==1){
                     result=digit*digit;
                     }else{
-                        result = result*digit;
+                        result*= digit;
                         }
             }
             sum+=result;
             aux_arms2 = aux_arms2/10;
         }
-        printf("%d", sum);
+        if(arms == sum){
+            printf("The number %d is an Armstrong number\n",arms);
+        }else{
+            printf("The number %d is not an Armstrong number\n",arms);
+        }
+        break;
 
+    case 4:
+        /*Strong Number*/
+        /*145 = 1! + 4! + 5! = 1 + 24 + 120 = 145
+           3! = n*(n-1)*(n-2) */
+        printf("Write a number:\n");
+        scanf("%d", &stnum);
+        int aux_str, last_n = 0, total=1, sumatory=0;
+
+        aux_str = stnum;
+        while(aux_str != 0){
+            last_n = aux_str%10;
+            int cont = 0;
+            while(cont < last_n){
+                total *= (last_n-cont);
+                cont++;
+            }
+            sumatory += total;
+            aux_str /= 10;
+            total = 1;
+
+        }
+        if(stnum == sumatory){
+            printf("The number %d is a Strong number\n",stnum);
+        }else{
+            printf("The number %d is not a Strong number\n",stnum);
+        };
+
+        break;
     }
     return 0;
 }
