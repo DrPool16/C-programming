@@ -142,6 +142,95 @@ IMPORTNAT POINTS
         Important Fact
         - C stores multidimensional arrays in row major order.
 
+    Address Arithmetic of Multidimensional arrays
+        1D:
+            a [1][2][2][4]
+            int a[4];
+            - means array of 4 integers
+            - pointer to first element of the array
+            - a ==> 1000
+            - a+1 ==> 1008
+            - *a ==> returns pointer to the first element = a[0] = &a[0][0]
+        2D:
+            a[1][2] [3][4]
+             row 1  row 2
+            int a[2][2];
+                Two 1D array || Each of which contains 2 elements
+            - Pointer to the first 1D array.
+            - 2D Array:
+             --> a[   1  ][   2   ][   3  ][  4   ]
+                  | 1000 ||  1004 || 1008 || 1012 |
+                  [     1000      ][     1008     ]
+            - a ==> 1000(pointer to 1st 1D array)
+            - a + 1 ==> 1008(pointer to 2nd 1D array)
+            - *a ==> *(pointer to 1st 1D array)
+            - *a ==> pointer to the first element of first 1D array
+            - *(a+1) ==> pointer to the first element of second 1D array => 1008
+            - **(a+1) ==> **(pointer to the 2nd 1D array) => *(pointer to the 1st element of 2nd 1D array) => 3
+            - *(a+1)+1 ==> pointer to the 1st element of 2nd 1D array + 1 => pointer to the second element of the second 1D array
+            - *(*(a+1)+1) ==> *pointer to the 2nd element of 2nd 1D array => 4 => a[1][1]
+
+
+            **a => *(*a) => *(*(a+0)) => *(&a[0][0]) => 1, star are cancel out => a[0][0] => 1
+        3D:
+            a[1][2] [3][4] [5][6] [7][8]
+            |row 1  row 2| |row 1  row 2|
+            |1st 2D array| |2nd 2D array|
+
+            int a[2][2][2];
+            - a pointer to the first 2D array
+            - a[2]
+                 --> two 2D arrays
+            - a[2][2]
+                    --> Each of which contains two 1D arrays
+            - a[2][2][2]
+                       --> Each of which contains two elements
+            - 3D Array:
+             --> a[   1  ][   2   ][   3  ][  4   ][   5  ][  6   ][   7  ][  8   ]
+                  | 1000 ||  1004 || 1008 || 1012 || 1016 ||  1020 || 1024 || 1028 |
+                  [     1000      ][     1008     ][     1016      ][     1024     ]
+                  [              1000             ][              1016             ]
+
+            - a = pointer to 1st 2D array = 1000
+            - a+1 = pointer to 2nd 2D array = 1016
+            - *(a+1) = pointer 1st 1D array of 2nd 2D array
+            - *(*(a+1)) = pointer 1st element of 1st 1D array of 2nd 2D array, getting the address
+            - **(*(a+1)) = 5 = a[1][0][0]
+            If want to access 2nd element of the above array
+            - a pointer to 1st 2D array = 1000
+            - *a pointer to 1st 1D array of 1st 2D array = 1000
+            - **a pointer to 1st 1D array of 1st 2D array = 1000
+            - **a+1 pointer to 2nd element of 1st 1D array of 1st 2D array = 1004
+            - *(**a+1) = 2nd element of 1st 1D array of 1st 2D array
+            How to access the second las element of above array using pointer arithmetic?
+            - a+1 = 1016
+            - *(a+1)+1 = 1024
+            - *(*(a+1)+1) = 1024
+            - **(*(a+1)+1) = 1024
+
+    Pointer pointing to an Entire Array
+
+        int a[5] = {1,2,3,4,5};
+        int *p = a;			<---- Pointer to the first element of array
+        printf("%d",*p);    => 1
+
+        if we replace *p to (*p)
+        int (*p)[5] = &a;	<--- Pointer to the whole array of 5 elements
+        printf("%p",p);     => 1000
+
+        Example: 2D array
+             --> b[   1  ][   2   ][   3  ][  4   ]
+                  | 1000 ||  1004 || 1008 || 1012 |
+                  [     1000      ][     1008     ]
+        *b = pointer to 1st element of 1st 1D array
+        &*b = b = pointer to 1st 1D array
+
+        int (*p)[5] = &a;
+        printf("%d",**p);  => 1
+
+        - p => It is pointer to the whole dimension array => 1000
+        - *p => Go inside, Moving inside, Get inside imaginary box => address of the 1st element of 1D array  => 1000
+        - **p => 1
 
 
 
@@ -169,6 +258,12 @@ int add(int b[], int len){       // We can also write int *b;
     int sum = 0, i;
     for(i=0;i<len;i++) sum += b[i];
     return sum;
+}
+/*Pointers (Program 6)*/
+int f(int *a, int n){
+    if(n <= 0) return 0;
+    else if(*a % 2 == 0) return *a + f(a+1, n-1);
+    else return *a - f(a+1, n-1);
 }
 #define N 5
 
@@ -260,11 +355,88 @@ int main()
 
     /*Passing Array as an Argument to a Function*/
     int lenn = sizeof(a)/sizeof(a[0]);
-    printf("\n%d",add(a,lenn)); // We are not passing the whole array. We are just passing the base address of the array.
+    printf("\n%d\n",add(a,lenn)); // We are not passing the whole array. We are just passing the base address of the array.
                                 // An array name is always treated as a pointer.
 
     /*Using pointers with two dimensional arrays*/
     //for(p=a&[0][0]; p <= &a[row-1][col-1]; p++) printf("%d",*p); Output: 1 2 3 4
+
+    /*Address Arithmetic of Multidimensional arrays*/
+    int ab[2][2][2] = {1,2,3,4,5,6,7,8};
+    int *pb;
+    pb = &ab[0][0][0];
+
+    printf("%d",**(*(ab+1)+1));\
+
+    /*PROGRAM 3
+    Consider the following declaration of two dimensional array in C\
+                        char[100][100]
+    Assuming that the main memory is byte addressable and that the array is
+    stored starting from the memory address 0, the address of a[40][50] is:
+
+    b)4050
+
+                        &a[40][50]
+    Formula: &a[i][j] = BA + [(i-lb1)] x NC + (j-lb2)] x c
+
+    Where BA = Base Address of whole 2D array
+    NC = Number of columns
+    c = size of data type of elements stored in array (in bytes)
+
+    a[lb1....ub1][lb2....ub2]
+    Where BA = 0
+    NC = 100
+    c = 1 byte
+    a[0...99][0...90]
+
+    &a[40][50] = 0 + [(40-0)] x 100 + (50-0)] x 1
+             = 4000 + 50
+             = 4050
+    */
+    /*
+    PROGRAM 4
+    What is the output of the following C code? Assume that the address of x is 2000
+    (in decimal) and an integer requires four bytes of memory.
+
+    a) 2036,2036,2036
+
+    int main(){
+        unsigned int x[4][3] ={{1,2,3},{4,5,6},
+                               {7,8,9},{10,11,12}};
+        printf("%u","%u","%u", x+3,*(x+3),*(x+2)+3);
+    }
+
+     --> x[   1  ][   2   ][   3  ][  4   ][   5  ][  6   ][   7  ][  8   ][   9  ][  10  ][  11  ][  12  ]
+          | 2000 ||  2004 || 2008 || 2012 || 2016 || 2020 || 2024 || 2028 || 2032 || 2036 || 2040 || 2044 |
+          [          2000         ][         2012         ][         2024         ][         2036         ]
+
+    x = pointer to he first 1D array => 2000
+    x + 3 = pointer to the 4th 1D array => 2000 + 3x3(elements)x4(byte) => 2036
+    *(x+3) = pointer to the 1st element of 4th 1D array => 2036
+    x + 2 = pointer to the 3rd 1D array => 2024
+    *(x+2) = pointer to the 1st element of 3rd 1D array => 2024
+    *(x+2)+3 = 2024 + 3x4(byte) => 2024 + 12 => 2036
+
+    */
+    /*Pointer Pointing to an Entire Array (Solved Problem)*/
+    int va[][3] = {1,2,3,4,5,6};                 // === {{1,2,3},{4,5,6}}
+    int (*ptr)[3] = va;                          // Passing the address of the 1st 1D array
+    printf("%d %d", (*ptr)[1],(*ptr)[2]);        // ptr is pointer to first 1D array
+                                                 //*ptr is pointer to first element of first 1D array
+                                                 // (*ptr)[1] = *((*ptr)+1)
+                                                 // (*ptr)+1 gives pointer to second element of first 1D array
+                                                 // *((*ptr)+1) gives 2nd element = 2
+                                                 // *((*ptr)+2) gives 3rd element = 3
+    ++ptr;      // Pointer to 2nd 1D array
+    printf("%d %d\n",(*ptr)[1], (*ptr)[2]);        // 5 6
+    // Output: 2 3 5 6
+
+    /*PROGRAM 6
+    What is the value printed by the following C program:
+    */
+    int cp[] = {12,7,13,4,11,6};
+    printf("%d", f(cp,6));           // === f(&cp[0],6)
+    getchar();
 
 
     return 0;
