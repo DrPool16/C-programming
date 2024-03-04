@@ -139,17 +139,176 @@ DEFINITION
             Automatically, the compiler sets aside 6 characters for s which is
             enough to store the string "Hello" with null character.
 
+    Writing Strings using printf and puts Functions
+
+        Writing String using Printf
+
+            char *ptr = "Hello World";
+            printf("%s", ptr);
+
+            Output: Hello World
+
+            "%.ns" is used to print just a part of the string where n is the number of
+            characters to be displayed on the screen.
+
+            char *ptr = "Hello World";
+            printf("%.5s",ptr);
+
+            Output: Hello
+
+            "%m.ns" is used to print just a part of the string where n is the number of
+            character to be displayed and m denotes the size of the field within which the
+            string will be displayed.
+
+            char *ptr = "Hello World!";
+            printf("%.5s", ptr);
+            printf("%6.5s", ptr,);
+
+            Output: Hello
+                     Hello
+
+                     [][H][e][l][l][o]
+                    Flied of length m=6
+
+        writing String using Puts
+
+            puts() function is a function declared in <stdio.h> library and is used to write
+            strings to the output screen.
+
+            Also, puts() function automatically writes a newline character after writing
+            the string to the output screen.
+
+            char *s = "Hello";
+            puts(s);
+            puts(s);
+
+    Reading Strings using scanf and gets Functions
+
+         Reading Strings using Scanf
+
+            Using scanf(), we can read a string into a string variable (character array)
+
+            char a[10];
+            printf("Enter the string:\n");
+            scanf("%s",a);      <----- Like any array name, a is treated as a pointer to the first element of the array. Therefore, there is no need to put &
+            printf("%s",a);
+
+
+            Input: You are most welcome
+            Output: You
+            Why only "You" is stored;
+
+            scanf() does not store the white space characters in the string variable.
+            It only reads characters other than white spaces and store them in the
+            specified character array until it encounters a white-space character.
+
+            Input: You are most welcome
+                       --> When white-space is seen by scanf, it stops and
+                       hence, only "You" is stored in the specified
+                       character array.
+
+        Reading String using Gets
+
+            In order to read an entire line of input, gets() function can be used.
+
+            char a[10];
+            printf("Enter the string:\n");
+            gets(a);
+            printf("%s",a);
+
+            Input: You are most welcome
+
+                Your program may CRASH!
+
+            Both, gets() and scanf functions have no way to detect when the character
+            array is full.
+            Both of them never checks the maximum limit of input characters. Hence,
+            they can may cause undefined behavior and probably lead to buffer overflow
+            error which eventually causes the program to crash.
+
+            Although, scanf() has the way to set the limit for the number of characters to
+            be stored in the character array.
+            By using %ns, where n indicates the number of characters allowed to store
+            in the character array.
+
+            char a[10];
+            printf("Enter the string:\n");
+            printf("%9s",a);
+            printf("%s",a);
+
+            Input: Youaremostwelcome
+            Ouput: Youaremos
+
+            But, unfortunately, get() is still UNSAFE.
+
+            It will try to write the characters beyond the memory allocated to the
+            character array which is unsafe because it will simply overwrite the memory
+            beyond the memory allocated to the character array.
+
+                    Hence, it is advisable to not use the gets() function.
+
+
+    Designing The Input Function using getchar()
+
+        As scanf and gets functions are risky to use. Hence, it is advisalbel to design our
+        own input function.
+
+        We want our input function to have following functionalities:
+        1. It must continue to read the string even after seeing white spaces
+           characters.
+        2. It must stop reading the string after seeing the newline character.
+        3. It must discard extra characters
+        4. And, it must return the number of characters it stores in the character array.
+
+        getchar() function is used to read one character at a time from the user input.
+        It returns an integer equivalent to the ASCII code of the character.
+
+    putchar() Function in C
+
+    Prototype: int putchar(in ch)
+
+    putchar accepts an integer argument (which represent a character it wants to display)
+    and returns an integer representing the character written on the screen.
+
+    Always remember that character is internally represented in binary form only.
+    It does not make any difference if you write int ch instead of char ch.
+
+
 
 
 */
+
+int input(char str[], int n){
+    int ch, i=0;
+    while((ch = getchar())!= '\n')         // This is the reason why we have int ch in place of char ch // ((ch=72) != 10)
+        if(i < n)
+            str[i++] = ch;                  // Input: Hello, How are you
+    str[i] = '\0';
+    return i;
+
+}
+
 int main()
 {
 
 
     printf("%s","You have to dream before.\
-           --Abdul Kalam");             //L--> In C, this is called "Splicing"
+           --Abdul Kalam\n");             //L--> In C, this is called "Splicing"
                                         //Considered 4 spaces before--
     printf("%s","You have to dream before."
-           "--Abdul Kalam");            //Does not consider the indentation before--
+           "--Abdul Kalam\n");            //Does not consider the indentation before--
+
+    char *s = "Hello";
+    puts(s);
+    puts(s);
+
+    char str[100];
+    int n = input(str,5);
+    printf("%d %s\n",n,str);      // 5 Hello
+
+    int ch1 ;
+    for(ch1 = 'A'; ch1 <= 'Z';ch1++)
+        putchar(ch1);
+
     return 0;
 }
