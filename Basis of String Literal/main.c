@@ -420,12 +420,43 @@ DEFINITION
               3[] --> [1][][P][i][n][e][a][p][p ][l ][e ][\0]
 
 
+    SOLVED PROBLEM 5
 
+    void fun1(char *s1, char *s2){   // These addresses are swapped within the pointer as foreign as to which are local to this function there is no change observed in str13 and str14 at all
+    char *tmp;
+    tmp = s1;
+    s1 = s2;
+    s2 = tmp;
+    }
 
+    void fun2(char **s1, char **s2){
+        char *tmp;
+        tmp = *s1;
+        *s1 = *s2;
+        *s2 = tmp;
+    }
+
+    int main(){
+        char *str13 = "Hi", *str14 = "Bye";
+        fun1(str13,str14); printf("%s %s ",str13,str14);         // Hi Bye
+        fun2(&str13,&str14); printf("%s %s\n",str13,str14);       // Bye Hi
+    }
+
+    SOLVED PROBLEM 6
+    2[p] === *(2+p)
+
+    [G][A][T][E][C][S][I][T][2][0][1][7][\0]
+    REMEMBER: strlen() does not count NULL character.
+
+        - strlen returns a size_t type data.
+          Therefore, (int) will convert the
+          size_t type to int type. This is
+          called Type Casting.
 */
 
 #include <string.h>
 
+/*getchar()*/
 int input(char str[], int n){
     int ch, i=0;
     while((ch = getchar())!= '\n')         // This is the reason why we have int ch in place of char ch // ((ch=72) != 10)
@@ -434,6 +465,21 @@ int input(char str[], int n){
     str[i] = '\0';
     return i;
 
+}
+
+/*SOLVED PROBLEM 5*/
+void fun1(char *s1, char *s2){
+    char *tmp;
+    tmp = s1;
+    s1 = s2;
+    s2 = tmp;
+}
+
+void fun2(char **s1, char **s2){
+    char *tmp;
+    tmp = *s1;
+    *s1 = *s2;
+    *s2 = tmp;
 }
 
 int main()
@@ -454,6 +500,7 @@ int main()
     int n = input(str,5);
     printf("%d %s\n",n,str);      // 5 Hello
 
+    /*PUTCHAR()*/
     int ch1 ;
     for(ch1 = 'A'; ch1 <= 'Z';ch1++)
         putchar(ch1);                 //ABCDEFG....XYZ
@@ -549,6 +596,14 @@ int main()
     else
         printf("s9 is greater that or equal to s10\n");
 
+    /*SOLVED PROBLEM 5*/
+    char *str13 = "Hi", *str14 = "Bye";
+    fun1(str13,str14); printf("%s %s ",str13,str14);         // Hi Bye
+    fun2(&str13,&str14); printf("%s %s\n",str13,str14);       // Bye Hi
 
+    /*SOLVED PROBLEM 6*/
+    char *c = "GATECSIT2017";
+    char *p = c;
+    printf("%d\n", (int)strlen(c+2[p]-6[p]-1)); // (c=1000+*(2+1000)-*(6+1000)-1); ---> (int)strlen(1010) => [1][7][\0] <= (int)2 // Output: 2
     return 0;
 }
