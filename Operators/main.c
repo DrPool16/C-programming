@@ -79,14 +79,15 @@ BITWISE OPERATOR
     Left Shift operator
     * When bits are shifted left then trailing positions are filled with zeros.
         var = 3, var << 1
-        3 = 0000 0011 --> 0000 011 --> 0000 0110 = 6
+        3 = 0000 0011 --> 0000 011_ --> 0000 0110 = 6
     * Left shifting is equivalent to multiplication by 2^rightOperand
         var << 4
+        Output: 6  <- [3 x 2^1]
         Output: 48 <- [3 x 2^4]
     Right Shift operator
     * When bits are shifted right then leading positions are filled with zeros.
         var = 3, var >> 1
-        3 = 0000 0011 --> 000 0001 --> 0000 0001 = 1
+        3 = 0000 0011 --> _000 0001 --> 0000 0001 = 1
     * Left shifting is equivalent to division by 2^rightOperand
         var >> 4
         Output: 2 <- [3 / 2^4]
