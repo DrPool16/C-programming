@@ -121,11 +121,30 @@ CONDITIONAL OPERATOR
 
 COMMA (,) OPERATOR
 
-* Comma operator can be used as an "separator".
-* Comma operator can be used as an "operator".
+* Comma operator can be used as an "separator".  ---> int a = 3, b = 4, c = 6;
+* Comma operator can be used as an "operator".   ---> int a = (3,4,8); printf("%d",a);  a = 8;
 * Comma operator returns the rightmost operand in the expression and
   it simply evaluates the rest of the operands and finally reject them.
-* Comma operator is having least precedence among all the operators available in C language.
+
+            int var5 = (printf("%s\n", "HELLO!"), 5);
+            printf("%d\n",var5);    HELLO! 5   --HELLO!--> It will simply not rejected. First evaluated and them rejected. --5--> This value will be returned to var aftes evaluating the first operand.
+            printf("%d\n",var5);    5
+
+* Comma operator is having LEAST PRECEDENCE among all the operators available in C language.
+
+    ex1:
+            int a;                              int a;
+            a = 3,4,8;          ====            (a = 3),4,8;
+            printf("%d",a);                     printf("%d",a);
+                                a = 3;
+    ex2:
+            int a;
+            a = (3,4,8);          ====          int a = (3,4,8);
+            printf("%d",a);                     printf("%d",a);
+                                a = 8;
+
+    Bracket has the highest precedence than any other operator
+
 
 PRECEDENCE AND ASSOCIATIVITY OF OPERATORS
 
@@ -222,7 +241,7 @@ int main()
     int var6;
     int num1;
     num1 = (var6 = 15, var6+35);
-    printf("%d\n", num1);
+    printf("%d\n", num1); // 50
 
     /*PRECEDENCE AND ASSOCIATIVITY OF OPERATORS*/
     int a5 = 10, b5 = 20, c5 = 30, d5 = 40;
