@@ -4,7 +4,8 @@
 /*
 FUNCTION
 
-    Function is
+    Function is basically a set of statements that takes inputs, perform
+    some computation and produces output.
 
 
     *There are two important reasons of why we are using functions:
@@ -62,6 +63,13 @@ int add(int, int);    // Function prototype
 int call_b_v(int,int); // Call by value
 int call_b_r(int*,int*);  // Call by reference
 
+/*Solved Question 3*/
+int fun()
+{
+    static int num = 16;    // Static variable won't be destroyed
+    return num--;
+}
+
 int main()
 {
     int l=10, b=5;
@@ -80,13 +88,24 @@ int main()
     /*Call By Value*/
     int x_v=10, y_v=20;
     call_b_v(x_v,y_v);
-    printf("x=%d, y=%d\n",x_v,y_v);
+    printf("x=%d, y=%d\n",x_v,y_v); // 10 20
 
     /*Call By Reference*/
     int x_r=10, y_r=20;
     call_b_r(&x_r,&y_r);
-    printf("x=%d, y=%d\n",x_r,y_r);
+    printf("x=%d, y=%d\n",x_r,y_r); // 20 10
 
+
+    /*Solved Question 3*/
+    for ( fun() ; fun() ; fun() )
+        printf("%d ",fun()); // 14 11 8 5 2
+
+    return 0;
+
+    /*for ( 16 ; 15 ; 13 )  --> (16;12;10) --> (16;9;7) --> (16;6;4) --> (16;3;1) --> (16;0;)
+        printf("%d ", 14 ); -->    (11)    -->    (8)   -->    (5)   -->    (2)
+
+    */
 }
 
 
